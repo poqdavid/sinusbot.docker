@@ -29,6 +29,7 @@ case "$1" in
 	mv tts_service_x86_64.nexe ..
 	mv voice_lstm_en-US.zvoice ..
 	mv voice_lstm_de-DE.zvoice ..
+	mv voice_lstm_es-ES.zvoice ..
 
 	cd ..
 	rm -rf tmp
@@ -36,21 +37,28 @@ case "$1" in
 
 	cat <<EOT >> config.ini.configured
 [TTS]
-Enabled = false
+  Enabled = false
 
-[[TTS.Modules]]
-Locale = "en-US"
-Filename = "voice_lstm_en-US.zvoice"
-PipelineFile = "voice_lstm_en-US/sfg/pipeline"
-Prefix = "voice_lstm_en-US/sfg/"
-Instances = 2
+  [[TTS.Modules]]
+    Locale = "en-US"
+    Filename = "voice_lstm_en-US.zvoice"
+    PipelineFile = "voice_lstm_en-US/sfg/pipeline"
+    Prefix = "voice_lstm_en-US/sfg/"
+    Instances = 2
 
-[[TTS.Modules]]
-Locale = "de-DE"
-Filename = "voice_lstm_de-DE.zvoice"
-PipelineFile = "voice_lstm_de-DE/nfh/pipeline"
-Prefix = "voice_lstm_de-DE/nfh/"
-Instances = 2
+  [[TTS.Modules]]
+    Locale = "de-DE"
+    Filename = "voice_lstm_de-DE.zvoice"
+    PipelineFile = "voice_lstm_de-DE/nfh/pipeline"
+    Prefix = "voice_lstm_de-DE/nfh/"
+    Instances = 2
+
+  [[TTS.Modules]]
+    Locale = "es-ES"
+    Filename = "voice_lstm_es-ES.zvoice"
+    PipelineFile = "voice_lstm_es-ES/ana/pipeline"
+    Prefix = "voice_lstm_es-ES/ana/"
+    Instances = 2
 EOT
 	echo "Successfully installed Text-to-Speech"
 	;;

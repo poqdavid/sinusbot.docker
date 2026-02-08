@@ -1,18 +1,37 @@
 #FROM debian:buster-slim
-FROM python:3.9-slim-bookworm
+FROM debian:bookworm-slim
+ENV DEBIAN_FRONTEND=noninteractive
 
 LABEL description="SinusBot - TeamSpeak 3 and Discord music bot"
 LABEL version="1.0.2"
 
 # Install dependencies and clean up afterwards
 RUN apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends ca-certificates bzip2 unzip curl procps libpci3 libxslt1.1 libxkbcommon0 locales && \
-    rm -rf /tmp/* /var/tmp/* /var/lib/apt/lists/*
+    apt-get install -y --no-install-recommends \
+    bzip2 \
+    ca-certificates \
+    curl \
+    jq \
+    less \
+    libasound2 \
+    libegl1-mesa \
+    libglib2.0-0 \
+    libnss3 \
+    libpci3 \
+    libxcomposite-dev \
+    libxcursor1 \
+    libxkbcommon0 \
+    libxslt1.1 \
+    locales \
+    python3 \
+    python3-pip \
+    python3-venv \
+    procps \
+    unzip \
+    x11vnc \
+    xvfb \
+    && rm -rf /tmp/* /var/tmp/* /var/lib/apt/lists/*
 
-# Install dependencies and clean up afterwards
-RUN apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends x11vnc xvfb libxcursor1 libnss3 libegl1-mesa libasound2 libglib2.0-0 libxcomposite-dev less jq && \
-    rm -rf /tmp/* /var/tmp/* /var/lib/apt/lists/*
 
 # Set locale
 RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && locale-gen
@@ -47,4 +66,4 @@ VOLUME ["/opt/sinusbot/data", "/opt/sinusbot/scripts"]
 ENTRYPOINT ["/opt/sinusbot/entrypoint.sh"]
 
 HEALTHCHECK --interval=1m --timeout=10s \
-  CMD curl --no-keepalive -f http://localhost:8087/api/v1/botId || exit 1
+    CMD curl --no-keepalive -f http://localhost:8087/api/v1/botId || exit 1

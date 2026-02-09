@@ -42,6 +42,7 @@ ENV LANGUAGE en_US:en
 WORKDIR /opt/sinusbot
 
 ADD installer.sh .
+ADD files/ ./files/
 RUN chmod 755 installer.sh
 
 # Download/Install SinusBot
@@ -56,6 +57,7 @@ RUN bash installer.sh text-to-speech
 # Download/Install TeamSpeak Client
 RUN bash installer.sh teamspeak-3.5.6
 
+RUN rm -rf files
 ADD entrypoint.sh .
 RUN chmod 755 entrypoint.sh
 

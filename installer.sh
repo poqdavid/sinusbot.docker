@@ -9,7 +9,7 @@ case "$1" in
 
 "sinusbot")
 	echo "Downloading SinusBot..."
-	curl -s "https://www.sinusbot.com/pre/sinusbot-$SINUSBOT_VERSION.tar.bz2" | tar xj
+	tar xjf files/sinusbot-$SINUSBOT_VERSION.tar.bz2
 	chmod 755 sinusbot
 	mv scripts default_scripts
 	ln -s data/private.dat private.dat
@@ -23,7 +23,7 @@ case "$1" in
 	cd tts
 	mkdir tmp
 	cd tmp
-	curl -s https://chromium.googlesource.com/chromiumos/platform/assets/+archive/master/speech_synthesis/patts.tar.gz | tar -xz
+	tar -xzf ../../files/patts.tar.gz
 	unzip -q tts_service_x86_64.nexe.zip
 
 	mv tts_service_x86_64.nexe ..
